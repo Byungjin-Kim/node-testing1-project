@@ -60,6 +60,7 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.count = initialNumber;
   }
 
   /**
@@ -76,6 +77,15 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+    return this.count > 0 ? this.count-- : 0
+
+
+    // option..
+    //   if (this.count > 0) {
+    //     return this.count--;
+    //   }
+    //   return this.count;
+    // }
   }
 }
 
@@ -85,6 +95,8 @@ class Seasons {
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.seasons = ["summer", "fall", "winter", "spring"];
+    this.seasonIndex = 0;
   }
 
   /**
@@ -100,7 +112,13 @@ class Seasons {
    * seasons.next() // returns "summer"
    */
   next() {
-    // ✨ implement
+    const result = this.seasons[this.seasonIndex];
+    if (this.seasonIndex === 3) {
+      this.seasonIndex = 0;
+    } else {
+      ++this.seasonIndex;
+    }
+    return result;
   }
 }
 
@@ -115,6 +133,9 @@ class Car {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.tankSize = tankSize;
+    this.name = name;
+    this.mpg = mpg;
   }
 
   /**
@@ -132,6 +153,33 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    const maxDistance = this.tank * this.mpg;
+
+    if (distance <= maxDistance) {
+      this.odometer += distance;
+      this.tank -= distance / this.mpg;
+    } else {
+      this.odometer += maxDistance;
+      this.tank = 0;
+    }
+
+    return this.odometer;
+
+    // const maxDistance = this.tank * this.mpg;
+
+    // if (distance <= maxDistance) {
+    //   this.odometer = this.odometer + distance
+    //   this.tank = this.tank - (distance / this.mpg)
+    //   return this.odometer
+    // }
+
+
+
+    // this.odometer = this.odometer + maxDistance;
+    // this.tank = 0;
+
+    // return this.odometer
+
   }
 
   /**
@@ -146,7 +194,8 @@ class Car {
    * focus.refuel(99) // returns 600 (tank only holds 20)
    */
   refuel(gallons) {
-    // ✨ implement
+    this.tank = Math.min(this.tank + gallons, this.tankSize); // add fuel to the tank, limited by the tank's capacity
+    return this.tank * this.mpg;
   }
 }
 
@@ -165,6 +214,11 @@ class Car {
  */
 function isEvenNumberAsync(number) {
   // ✨ implement
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(number % 2 === 0);
+    }, 1000); // Simulating an asynchronous operation with a 1-second delay
+  });
 }
 
 module.exports = {
