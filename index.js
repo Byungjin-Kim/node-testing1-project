@@ -196,6 +196,12 @@ class Car {
   refuel(gallons) {
     this.tank = Math.min(this.tank + gallons, this.tankSize); // add fuel to the tank, limited by the tank's capacity
     return this.tank * this.mpg;
+
+    // if (gallons <= this.tankSize - this.tank) {
+    //   this.tank = this.tank + gallons
+    // } else {
+    //   this.tank = this.tankSize
+    // }
   }
 }
 
@@ -214,11 +220,11 @@ class Car {
  */
 function isEvenNumberAsync(number) {
   // ✨ implement
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(number % 2 === 0);
-    }, 1000); // Simulating an asynchronous operation with a 1-second delay
-  });
+  if (number % 2 === 0) {
+    return Promise.resolve(true)
+  } else {
+    return Promise.resolve(false)
+  }
 }
 
 module.exports = {
